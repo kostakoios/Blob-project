@@ -27,8 +27,10 @@ async function hashPassword(password: string) {
 }
 
 async function validateLoginUserDetails(user: LoginUserDto) {
+    console.log('Now I am heere in validation starting point')
     if (!user.email) throw new ServerError(ErrorType.INVALID_USER_EMAIL);
     if (!user.password) throw new ServerError(ErrorType.INVALID_USER_PASSWORD);
+    console.log('Now I am heere in validation ending point')
 }
   
 async function validateRegisterUserDetails(user: CreateUserDto) {
@@ -40,12 +42,12 @@ async function validateRegisterUserDetails(user: CreateUserDto) {
 
 export async function login(user: LoginUserDto) {
   console.log(user, "user");
-  await validateLoginUserDetails(user);
   console.log('I am now in the logic of login function');
   user.password = await hashPassword(user.password);
   console.log("user.password: ", user.password);
+  await validateLoginUserDetails(user);
   let userLoginData = await usersDao.login(user);
-
+  console.log('now I am here creating token process')
   // Do something with cache and stuff.. token....
     const token = jwt.sign({sub: userLoginData.email, userId: userLoginData.userId}, config.secret, { expiresIn: "7d"});
     console.log("token: ", token);

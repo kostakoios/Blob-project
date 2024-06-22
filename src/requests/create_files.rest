@@ -1,0 +1,13 @@
+###
+POST http://localhost:5000/api/files/createDirectory
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYW1hQGdtYWlsLmNvbSIsInVzZXJJZCI6IjI4NjA0OWJlLTJmOTYtMTFlZi1iMGY5LTAwMTU1ZDZhOWM4ZCIsImlhdCI6MTcxODk1MTYwNSwiZXhwIjoxNzE5NTU2NDA1fQ.YtpIOzIvVURbm5xHRbvCyusvN-Pg0vj-yUVnk3E3k4k
+
+{
+    "path": "nikusha/hugo"
+}
+
+###
+GET http://localhost:5000/api/files/getInfo
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKYWNrbmhuc2ZAZXhhbXBsZS5jb20iLCJ1c2VySWQiOiJjMzliMmZmZC0yZTczLTExZWYtYjBmOS0wMDE1NWQ2YTljOGQiLCJpYXQiOjE3MTg4MjYwMjEsImV4cCI6MTcxOTQzMDgyMX0.6tD3u6a42Q48Yh3EIDWq-GaPNFyA9DPlmexBTO3Bfbg

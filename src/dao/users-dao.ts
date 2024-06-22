@@ -10,11 +10,13 @@ export async function login(user: LoginUserDto) {
 
     let parameters = [user.email, user.password];
     let usersLoginResult: any;
-
+    console.log('parameters: ', parameters)
     try {
         usersLoginResult = await connection.executeWithParameters(sql, parameters);
+        console.log('usersLoginResult: ',usersLoginResult)
     }
     catch (err: any) {
+        console.log('Into the catch error part in dao')
         // This is an example, for a situation where a TECHNICAL ERROR HAD OCCURED
         // that error threw an exception - WHICH WE WANT TO WRAP with a ServerError
         throw new ServerError(ErrorType.GENERAL_ERROR, JSON.stringify(user), err);
@@ -22,6 +24,7 @@ export async function login(user: LoginUserDto) {
 
     // A functional (!) issue which means - the userName + password do not match
     if (usersLoginResult == null || usersLoginResult.length == 0) {
+        console.log('Now I am here inside daos usersLoginResult')
         throw new ServerError(ErrorType.UNAUTHORIZED);
     }
 

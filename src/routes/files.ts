@@ -4,8 +4,15 @@ import { createDirectory,
     copyDirectory, 
     moveDirectory, 
     listDirectory, 
-    writeFile } from "../controllers/files-controller";
+    writeFile,
+    readFile,
+    deleteFile,
+    copyFile,
+    moveFile,
+    getInfo
+  } from "../controllers/files-controller";
 import multer from "multer";
+import path from "path";
 
 const router = Router();
 
@@ -24,10 +31,38 @@ router.post('/moveDirectory', moveDirectory);
 // /api/files/listDirectory
 router.post('/listDirectory', listDirectory);
 
-// Set up multer for file uploads
-const upload = multer({ storage: multer.memoryStorage() });
+// /api/files/writeFile
+router.post('/writeFile', writeFile);
+
+// /api/files/readFile
+router.post('/readFile', readFile);
+
+// /api/files/deleteFile
+router.post('/deleteFile', deleteFile);
+
+// /api/files/copyFile
+router.post('/copyFile', copyFile);
+
+// /api/files/moveFile
+router.post('/moveFile', moveFile);
+
+// /api/files/moveFile
+router.get('/getInfo', getInfo);
+
+
+// Configure Multer for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, '../storage'));
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  }
+});
+
+const upload = multer({ storage });
 
 // /api/files/writeFile
-router.post('/writeFile',  upload.single('file'), writeFile);
+router.post('api/files/writeFile',  upload.single('file'), writeFile);
 
 export default router;

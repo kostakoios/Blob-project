@@ -139,6 +139,7 @@ export async function listDirectory(
   getUserIdFromToken: string
 ): Promise<FsNode[]> {
   const baseDir = path.resolve(__dirname, `../storage/${getUserIdFromToken}`);
+  console.log('baseDir: ', baseDir);
   try {
     // Check if userId directory exists
     const userDirectoryExists = await fs.pathExists(baseDir);
@@ -148,11 +149,17 @@ export async function listDirectory(
     // Resolve the full path to ensure it's within the baseDir
     const dirPath = path.resolve(baseDir, folderData.dirPath);
     const items = await fs.readdir(dirPath, { withFileTypes: true });
-    const fsNodes: FsNode[] = items.map((item) => ({
-      name: item.name,
-      path: path.join(dirPath, item.name),
-      isDirectory: item.isDirectory(),
-    }));
+    const fsNodes: FsNode[] = items.map((item) => {
+      const fullPath = path.join(dirPath, item.name);
+      const storageIndex = fullPath.indexOf('storage') + 8; // Length of 'storage\\' is 8
+      const shortPath = fullPath.substring(storageIndex).replace(/\\/g, '/'); // Replace backslashes with forward slashes;
+      return {
+        name: item.name,
+        path: shortPath,
+        isDirectory: item.isDirectory(),
+      }
+      
+    });
     return fsNodes;
   } catch (error: any) {
     console.error("Error moving directory:", error.message);

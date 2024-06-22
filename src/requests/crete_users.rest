@@ -4,16 +4,16 @@ Content-Type: application/json
 
 {
     "firstName": "Jack",
-    "lastName": "Tedoradze",
-    "email": "Jacknhnsf@example.com",
-    "password": "s9ds23dfsa4"
+    "lastName": "rade",
+    "email": "mama@gmail.com",
+    "password": "KOTkot2020"
 }
 ###
 POST http://localhost:5000/api/users/login
 Content-Type: application/json
 
 {
-    "email": "enstar@example.com",
-    "password": "3ds235sdf"
+    "email": "mama@gmail.com",
+    "password": "KOTkot2020"
 }
 
